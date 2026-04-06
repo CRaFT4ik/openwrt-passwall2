@@ -136,6 +136,18 @@ msgstr "DNS مستقیم DoH"
 msgid "Direct DNS EDNS Client Subnet"
 msgstr "زیرشبکه کلاینت EDNS برای DNS مستقیم"
 
+msgid "DNS queries are split by shunt rules. Direct DNS serves domains that go directly. Remote DNS serves domains that go through the VPN node."
+msgstr "درخواست‌های DNS بر اساس قوانین شانت تقسیم می‌شوند. DNS مستقیم دامنه‌های مستقیم را سرویس می‌دهد. DNS راه دور دامنه‌هایی که از طریق نود VPN می‌روند را سرویس می‌دهد."
+
+msgid "Fallback DNS"
+msgstr "DNS پشتیبان"
+
+msgid "from dnsmasq config"
+msgstr "از پیکربندی dnsmasq"
+
+msgid "Used when Direct DNS Protocol is set to Auto and no DNS servers are found in the dnsmasq configuration."
+msgstr "زمانی استفاده می‌شود که پروتکل DNS مستقیم روی خودکار تنظیم شده و سرور DNS در پیکربندی dnsmasq یافت نشود."
+
 msgid "Remote DNS Protocol"
 msgstr "پروتکل DNS راه دور"
 
@@ -2118,6 +2130,9 @@ msgstr "بخش‌های شبکه محلی (%s) اتصال مستقیم: %s"
 
 msgid "Add ISP %s DNS to the whitelist: %s"
 msgstr "افزودن DNS ISP %s به لیست سفید: %s"
+
+msgid "Add direct DNS to the whitelist: %s"
+msgstr "افزودن DNS مستقیم به لیست سفید: %s"
 
 msgid "[%s]"
 msgstr "[%s]"
