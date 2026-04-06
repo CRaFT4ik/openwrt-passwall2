@@ -133,6 +133,18 @@ msgstr "直连 DNS DoH"
 msgid "Direct DNS EDNS Client Subnet"
 msgstr "直连 DNS EDNS Client Subnet"
 
+msgid "DNS queries are split by shunt rules. Direct DNS serves domains that go directly. Remote DNS serves domains that go through the VPN node."
+msgstr "DNS 请求按分流规则分配。直连 DNS 服务直连域名，远程 DNS 服务通过 VPN 节点的域名。"
+
+msgid "Fallback DNS"
+msgstr "备用 DNS"
+
+msgid "from dnsmasq config"
+msgstr "来自 dnsmasq 配置"
+
+msgid "Used when Direct DNS Protocol is set to Auto and no DNS servers are found in the dnsmasq configuration."
+msgstr "当直连 DNS 协议设置为自动且在 dnsmasq 配置中未找到 DNS 服务器时使用。"
+
 msgid "Remote DNS Protocol"
 msgstr "远程 DNS 协议"
 
@@ -2110,6 +2122,9 @@ msgstr "本机 %s 网段直连：%s"
 
 msgid "Add ISP %s DNS to the whitelist: %s"
 msgstr "追加ISP %s DNS 到白名单：%s"
+
+msgid "Add direct DNS to the whitelist: %s"
+msgstr "添加直连 DNS 到白名单: %s"
 
 msgid "[%s]"
 msgstr "【%s】"

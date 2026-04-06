@@ -168,6 +168,51 @@ node_socks_bind_local:depends({ node = "", ["!reverse"] = true })
 
 s:tab("DNS", translate("DNS"))
 
+o = s:taboption("DNS", DummyValue, "_dns_hint")
+o.rawhtml = true
+o.cfgvalue = function()
+	return "<em>" .. translate("DNS queries are split by shunt rules. Direct DNS serves domains that go directly. Remote DNS serves domains that go through the VPN node.") .. "</em>"
+end
+
+local dns_servers = {
+	{ "1.1.1.1", "1.1.1.1 (CloudFlare)" },
+	{ "1.1.1.2", "1.1.1.2 (CloudFlare-Security)" },
+	{ "8.8.4.4", "8.8.4.4 (Google)" },
+	{ "8.8.8.8", "8.8.8.8 (Google)" },
+	{ "9.9.9.9", "9.9.9.9 (Quad9-Recommended)" },
+	{ "149.112.112.112", "149.112.112.112 (Quad9-Recommended)" },
+	{ "208.67.220.220", "208.67.220.220 (OpenDNS)" },
+	{ "208.67.222.222", "208.67.222.222 (OpenDNS)" },
+	{ "119.29.29.29", "119.29.29.29 (DNSPod)" },
+	{ "223.5.5.5", "223.5.5.5 (AliDNS)" },
+}
+
+local function add_dns_values(field)
+	for _, entry in ipairs(dns_servers) do
+		field:value(entry[1], entry[2])
+	end
+end
+
+o = s:taboption("DNS", ListValue, "direct_dns_protocol", translate("Direct DNS Protocol"))
+o.default = "auto"
+o:value("auto", translate("Auto") .. " (" .. translate("from dnsmasq config") .. ")")
+o:value("udp", "UDP")
+o:value("tcp", "TCP")
+
+o = s:taboption("DNS", Value, "direct_dns", translate("Direct DNS"))
+o.datatype = "or(ipaddr,ipaddrport)"
+o.default = "1.1.1.1"
+add_dns_values(o)
+o:depends("direct_dns_protocol", "udp")
+o:depends("direct_dns_protocol", "tcp")
+
+o = s:taboption("DNS", Value, "fallback_dns", translate("Fallback DNS"))
+o.description = translate("Used when Direct DNS Protocol is set to Auto and no DNS servers are found in the dnsmasq configuration.")
+o.datatype = "or(ipaddr,ipaddrport)"
+o.default = "119.29.29.29"
+add_dns_values(o)
+o:depends("direct_dns_protocol", "auto")
+
 o = s:taboption("DNS", ListValue, "direct_dns_query_strategy", translate("Direct Query Strategy"))
 o.default = "UseIP"
 o:value("UseIP")
@@ -188,14 +233,7 @@ end
 o = s:taboption("DNS", Value, "remote_dns", translate("Remote DNS"))
 o.datatype = "or(ipaddr,ipaddrport)"
 o.default = "1.1.1.1"
-o:value("1.1.1.1", "1.1.1.1 (CloudFlare)")
-o:value("1.1.1.2", "1.1.1.2 (CloudFlare-Security)")
-o:value("8.8.4.4", "8.8.4.4 (Google)")
-o:value("8.8.8.8", "8.8.8.8 (Google)")
-o:value("9.9.9.9", "9.9.9.9 (Quad9-Recommended)")
-o:value("149.112.112.112", "149.112.112.112 (Quad9-Recommended)")
-o:value("208.67.220.220", "208.67.220.220 (OpenDNS)")
-o:value("208.67.222.222", "208.67.222.222 (OpenDNS)")
+add_dns_values(o)
 o:depends("remote_dns_protocol", "tcp")
 o:depends("remote_dns_protocol", "udp")
 o:depends("remote_dns_protocol", "quic")

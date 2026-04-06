@@ -689,6 +689,16 @@ add_firewall_rule() {
 		fi
 	done
 
+	# When direct DNS is an explicit server (not auto/localhost), add it to bypass
+	local _direct_dns_protocol=$(config_t_get global direct_dns_protocol auto)
+	if [ "$_direct_dns_protocol" = "udp" ] || [ "$_direct_dns_protocol" = "tcp" ]; then
+		local _direct_dns_ip=$(config_t_get global direct_dns | sed -E 's/[#:][0-9]+$//;s/ //g')
+		[ -n "$_direct_dns_ip" ] && {
+			ipset -! add $IPSET_LAN $_direct_dns_ip
+			log_i18n 1 "$(i18n "Add direct DNS to the whitelist: %s" "${_direct_dns_ip}")"
+		}
+	fi
+
 	# Shunt rules IP list (import when use shunt node)
 	gen_shunt_list "${NODE}" SHUNT_LIST4 SHUNT_LIST6
 

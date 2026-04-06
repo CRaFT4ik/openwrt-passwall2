@@ -133,6 +133,18 @@ msgstr "Прямой DNS-over-HTTPS"
 msgid "Direct DNS EDNS Client Subnet"
 msgstr "EDNS Client Subnet для прямого DNS"
 
+msgid "DNS queries are split by shunt rules. Direct DNS serves domains that go directly. Remote DNS serves domains that go through the VPN node."
+msgstr "DNS-запросы разделяются по правилам шунтирования (Shunt). Прямой DNS обслуживает домены, идущие напрямую. Прокси DNS - домены, идущие через VPN-узел."
+
+msgid "Fallback DNS"
+msgstr "Резервный DNS"
+
+msgid "from dnsmasq config"
+msgstr "из конфигурации dnsmasq"
+
+msgid "Used when Direct DNS Protocol is set to Auto and no DNS servers are found in the dnsmasq configuration."
+msgstr "Используется, когда протокол прямого DNS установлен в Авто и серверы DNS не найдены в конфигурации dnsmasq."
+
 msgid "Remote DNS Protocol"
 msgstr "Протокол прокси-DNS"
 
@@ -2119,6 +2131,9 @@ msgstr "Локальные подсети (%s): прямое подключен�
 
 msgid "Add ISP %s DNS to the whitelist: %s"
 msgstr "Добавление DNS провайдера %s в белый список: %s"
+
+msgid "Add direct DNS to the whitelist: %s"
+msgstr "Добавление прямого DNS в белый список: %s"
 
 msgid "[%s]"
 msgstr "【%s】"
