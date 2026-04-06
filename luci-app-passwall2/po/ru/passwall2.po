@@ -193,6 +193,12 @@ msgstr "Перехват DNS-запросов"
 msgid "Force special DNS server to need proxy devices."
 msgstr "Принудительно направлять DNS-запросы устройств через прокси на выделенный сервер."
 
+msgid "Do not modify system DNS"
+msgstr "Не вмешиваться в системный DNS"
+
+msgid "Prevent passwall2 from injecting its DNS server into dnsmasq. Enable this if you manage DNS independently."
+msgstr "Запретить passwall2 подмешивать свой DNS-сервер в dnsmasq. Включите, если вы управляете DNS самостоятельно."
+
 msgid "Clear IPSET"
 msgstr "Очистить IPSet"
 

@@ -193,6 +193,12 @@ msgstr "DNS 重定向"
 msgid "Force special DNS server to need proxy devices."
 msgstr "強制需要代理的設備使用專用 DNS 服務器。"
 
+msgid "Do not modify system DNS"
+msgstr "不修改系統 DNS"
+
+msgid "Prevent passwall2 from injecting its DNS server into dnsmasq. Enable this if you manage DNS independently."
+msgstr "禁止 passwall2 將其 DNS 伺服器注入 dnsmasq。如果您自行管理 DNS，請啟用此選項。"
+
 msgid "Clear IPSET"
 msgstr "清空 IPSET"
 

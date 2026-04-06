@@ -196,6 +196,12 @@ msgstr "تغییر مسیر DNS"
 msgid "Force special DNS server to need proxy devices."
 msgstr "اجبار دستگاه‌های پروکسی به استفاده از سرور DNS خاص."
 
+msgid "Do not modify system DNS"
+msgstr "سیستم DNS را تغییر ندهید"
+
+msgid "Prevent passwall2 from injecting its DNS server into dnsmasq. Enable this if you manage DNS independently."
+msgstr "از تزریق سرور DNS پروکسی به dnsmasq جلوگیری کنید. اگر DNS را خودتان مدیریت می‌کنید، این گزینه را فعال کنید."
+
 msgid "Clear IPSET"
 msgstr "پاک کردن IPSET"
 

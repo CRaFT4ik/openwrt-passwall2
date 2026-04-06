@@ -715,41 +715,27 @@ run_global() {
 	local RUN_NEW_DNSMASQ=1
 	RUN_NEW_DNSMASQ=${DNS_REDIRECT}
 	if [ "${RUN_NEW_DNSMASQ}" == "0" ]; then
-		#The old logic will be removed in the future.
-		#Run a copy dnsmasq instance, DNS hijack that don't need a proxy devices.
-		[ "1" = "0" ] && {
-			DIRECT_DNSMASQ_PORT=$(get_new_port 11400)
-			DIRECT_DNSMASQ_CONF=${GLOBAL_ACL_PATH}/direct_dnsmasq.conf
-			DIRECT_DNSMASQ_CONF_PATH=${GLOBAL_ACL_PATH}/direct_dnsmasq.d
-			mkdir -p ${DIRECT_DNSMASQ_CONF_PATH}
+		if [ "${DNS_NO_INJECT_DNSMASQ}" != "1" ]; then
+			#Rewrite the default DNS service configuration
+			#Modify the default dnsmasq service
+			lua $APP_PATH/helper_dnsmasq.lua stretch
 			json_init
-			json_add_string "LISTEN_PORT" "${DIRECT_DNSMASQ_PORT}"
-			json_add_string "DNSMASQ_CONF" "${DIRECT_DNSMASQ_CONF}"
-			json_add_string "TMP_DNSMASQ_PATH" "${DIRECT_DNSMASQ_CONF_PATH}"
-			lua $APP_PATH/helper_dnsmasq.lua copy_instance "$(json_dump)"
-			ln_run "$(first_type dnsmasq)" "dnsmasq_direct" "/dev/null" -C ${DIRECT_DNSMASQ_CONF} -x ${GLOBAL_ACL_PATH}/direct_dnsmasq.pid
-			set_cache_var "DIRECT_DNSMASQ_PORT" "${DIRECT_DNSMASQ_PORT}"
-		}
-		
-		#Rewrite the default DNS service configuration
-		#Modify the default dnsmasq service
-		lua $APP_PATH/helper_dnsmasq.lua stretch
-		json_init
-		json_add_string "FLAG" "default"
-		json_add_string "TMP_DNSMASQ_PATH" "${GLOBAL_DNSMASQ_CONF_PATH}"
-		json_add_string "DNSMASQ_CONF_FILE" "${GLOBAL_DNSMASQ_CONF}"
-		json_add_string "DEFAULT_DNS" "${AUTO_DNS}"
-		json_add_string "LOCAL_DNS" "${LOCAL_DNS:-${AUTO_DNS}}"
-		json_add_string "TUN_DNS" "${TUN_DNS}"
-		json_add_string "NFTFLAG" "${nftflag:-0}"
-		json_add_string "NO_LOGIC_LOG" "${NO_LOGIC_LOG:-0}"
-		lua $APP_PATH/helper_dnsmasq.lua add_rule "$(json_dump)"
-		uci -q add_list dhcp.@dnsmasq[0].addnmount=${GLOBAL_DNSMASQ_CONF_PATH}
-		uci -q commit dhcp
+			json_add_string "FLAG" "default"
+			json_add_string "TMP_DNSMASQ_PATH" "${GLOBAL_DNSMASQ_CONF_PATH}"
+			json_add_string "DNSMASQ_CONF_FILE" "${GLOBAL_DNSMASQ_CONF}"
+			json_add_string "DEFAULT_DNS" "${AUTO_DNS}"
+			json_add_string "LOCAL_DNS" "${LOCAL_DNS:-${AUTO_DNS}}"
+			json_add_string "TUN_DNS" "${TUN_DNS}"
+			json_add_string "NFTFLAG" "${nftflag:-0}"
+			json_add_string "NO_LOGIC_LOG" "${NO_LOGIC_LOG:-0}"
+			lua $APP_PATH/helper_dnsmasq.lua add_rule "$(json_dump)"
+			uci -q add_list dhcp.@dnsmasq[0].addnmount=${GLOBAL_DNSMASQ_CONF_PATH}
+			uci -q commit dhcp
 
-		json_init
-		json_add_string "LOG" "1"
-		lua $APP_PATH/helper_dnsmasq.lua logic_restart "$(json_dump)"
+			json_init
+			json_add_string "LOG" "1"
+			lua $APP_PATH/helper_dnsmasq.lua logic_restart "$(json_dump)"
+		fi
 	else
 		#Run a copy dnsmasq instance, DNS hijack for that need proxy devices.
 		GLOBAL_DNSMASQ_PORT=$(get_new_port 11400)
@@ -1298,6 +1284,7 @@ get_config() {
 	REMOTE_DNS_QUERY_STRATEGY=$(config_t_get global remote_dns_query_strategy UseIPv4)
 	DNS_CACHE=$(config_t_get global dns_cache 1)
 	DNS_REDIRECT=$(config_t_get global dns_redirect 1)
+	DNS_NO_INJECT_DNSMASQ=$(config_t_get global dns_no_inject_dnsmasq 0)
 
 	RESOLVFILE=/tmp/resolv.conf.d/resolv.conf.auto
 	[ -f "${RESOLVFILE}" ] && [ -s "${RESOLVFILE}" ] || RESOLVFILE=/tmp/resolv.conf.auto
