@@ -8,6 +8,8 @@ config global
 	option acl_enable '0'
 	option node 'rulenode'
 	option direct_dns_protocol 'auto'
+	option direct_dns '1.1.1.1'
+	option fallback_dns '119.29.29.29'
 	option direct_dns_query_strategy 'UseIP'
 	option remote_dns_protocol 'tcp'
 	option remote_dns '1.1.1.1'

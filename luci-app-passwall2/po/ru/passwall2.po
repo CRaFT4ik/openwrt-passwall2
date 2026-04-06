@@ -133,6 +133,18 @@ msgstr "Прямой DNS-over-HTTPS"
 msgid "Direct DNS EDNS Client Subnet"
 msgstr "EDNS Client Subnet для прямого DNS"
 
+msgid "DNS queries are split by shunt rules. Direct DNS serves domains that go directly. Remote DNS serves domains that go through the VPN node."
+msgstr "DNS-запросы разделяются по правилам шунтирования (Shunt). Прямой DNS обслуживает домены, идущие напрямую. Прокси DNS - домены, идущие через VPN-узел."
+
+msgid "Fallback DNS"
+msgstr "Резервный DNS"
+
+msgid "from dnsmasq config"
+msgstr "из конфигурации dnsmasq"
+
+msgid "Used when Direct DNS Protocol is set to Auto and no DNS servers are found in the dnsmasq configuration."
+msgstr "Используется, когда протокол прямого DNS установлен в Авто и серверы DNS не найдены в конфигурации dnsmasq."
+
 msgid "Remote DNS Protocol"
 msgstr "Протокол прокси-DNS"
 
@@ -568,6 +580,9 @@ msgstr "Тип аутентификации"
 msgid "Auth Password"
 msgstr "Пароль аутентификации"
 
+msgid "Client BBR Flow Control"
+msgstr "Управление клиентом BBR"
+
 msgid "Commands the client to use the BBR flow control algorithm"
 msgstr "Включает использование алгоритма управления потоком BBR на клиенте"
 
@@ -591,6 +606,9 @@ msgstr "Размер окна приёма соединения QUIC"
 
 msgid "QUIC concurrent bidirectional streams"
 msgstr "Макс. количество одновременных двунаправленных потоков QUIC"
+
+msgid "QUIC KeepAlive interval"
+msgstr "Интервал QUIC KeepAlive"
 
 msgid "Disable MTU detection"
 msgstr "Отключить определение MTU"
@@ -741,6 +759,12 @@ msgstr "Перехват ICMP (PING)"
 
 msgid "Hijacking ICMPv6 (IPv6 PING)"
 msgstr "Перехват ICMPv6 (IPv6 PING)"
+
+msgid "Force Proxy LAN IP"
+msgstr "Принудительное использование IP-адреса локальной сети (Local IP)"
+
+msgid "By default, commonly used internal network IP ranges will be connect directly (not entering the core). If you want a certain network range to go through a proxy, please add it here."
+msgstr "По умолчанию, часто используемые диапазоны IP-адресов внутренней сети будут подключаться напрямую (без доступа к ядру сети). Если вы хотите, чтобы определенный диапазон IP-адресов сети проходил через прокси-сервер, укажите это здесь."
 
 msgid "Sniffing"
 msgstr "Анализ трафика"
@@ -1100,7 +1124,22 @@ msgid "IP range"
 msgstr "Диапазон IP"
 
 msgid "Source Interface"
-msgstr "Исходящий интерфейс"
+msgstr "Интерфейс источника"
+
+msgid "Bridge"
+msgstr "Мост"
+
+msgid "Wireless Adapter"
+msgstr "Беспроводной адаптер"
+
+msgid "Ethernet Adapter"
+msgstr "Ethernet-адаптер"
+
+msgid "Tunnel Interface"
+msgstr "Туннельный интерфейс"
+
+msgid "Invalid interface name"
+msgstr "Недопустимое имя интерфейса"
 
 msgid "Use Interface With ACLs"
 msgstr "Применять правила к интерфейсу"
@@ -1321,6 +1360,9 @@ msgstr "Пропускать проверку сертификата"
 msgid "Whether unsafe connections are allowed. When checked, Certificate validation will be skipped."
 msgstr "Разрешить соединения без проверки сертификата. При включении валидация будет пропущена."
 
+msgid "Used when the node link does not include this parameter."
+msgstr "Используется, если в ссылке на узел этот параметр отсутствует."
+
 msgid "%s Node Use Type"
 msgstr "Тип использования сервера %s"
 
@@ -1338,6 +1380,9 @@ msgstr "Пароль для локального SOCKS TUIC"
 
 msgid "UDP relay mode"
 msgstr "Режим ретрансляции UDP"
+
+msgid "Concurrent Tunnels"
+msgstr "Одновременные туннели"
 
 msgid "Congestion control algorithm"
 msgstr "Алгоритм контроля перегрузок"
@@ -1660,11 +1705,20 @@ msgstr "Политика запросов ECH"
 msgid "Controls the policy used when performing DNS queries for ECH configuration."
 msgstr "Управляет политикой DNS-запросов для получения конфигурации ECH."
 
+msgid "ECH Query Domain"
+msgstr "Домен запроса ECH"
+
+msgid "Overrides the domain name used for ECH HTTPS record queries."
+msgstr "Переопределяет доменное имя, используемое для запросов записей ECH HTTPS."
+
 msgid "Enable Multipath TCP, need to be enabled in both server and client configuration."
 msgstr "Включить Multipath TCP. Должно быть активировано и на сервере, и на клиенте."
 
 msgid "An FinalMaskObject in JSON format, used for sharing."
 msgstr "Объект FinalMaskObject в формате JSON, используемый для обмена данными."
+
+msgid "Custom finalmask overrides mkcp, hysteria2, fragment, noise, and related settings."
+msgstr "Пользовательская настройка finalmask переопределяет параметры mkcp, hysteria2, fragment, noise и связанные с ними настройки."
 
 msgid "Fragment"
 msgstr "Фрагментация"
@@ -1684,17 +1738,17 @@ msgstr "Длина фрагмента"
 msgid "Fragmented packet length (byte)"
 msgstr "Длина фрагментированного пакета (байт)"
 
-msgid "Fragment Interval"
-msgstr "Интервал фрагментации"
+msgid "Fragment Delay"
+msgstr "Задержка фрагмента"
 
 msgid "Fragmentation interval (ms)"
 msgstr "Интервал между фрагментами (мс)"
 
 msgid "Max Split"
-msgstr "Макс. число фрагментов"
+msgstr "Максимальное разделение"
 
 msgid "Limit the maximum number of splits."
-msgstr "Ограничить максимальное количество фрагментов."
+msgstr "Ограничьте максимальное количество разделений."
 
 msgid "Split handshake data into multiple TLS records for better censorship evasion. Low overhead. Recommended to enable first."
 msgstr "Разбивать данные рукопожатия на несколько TLS-записей для лучшего обхода цензуры. Малая нагрузка. Рекомендуется включить в первую очередь."
@@ -1714,14 +1768,11 @@ msgstr "Чтобы отправлять шумовые пакеты, включ�
 msgid "Xray Noise Packets"
 msgstr "Пакеты шума Xray"
 
-msgid "Packet"
-msgstr "Пакет"
+msgid "Packet | Rand Length"
+msgstr "Пакет | Длина ранда"
 
 msgid "Delay (ms)"
 msgstr "Задержка (мс)"
-
-msgid "IP Type"
-msgstr "Тип IP"
 
 msgid "If is domain name, The requested domain name will be resolved to IP before connect."
 msgstr "Если указано доменное имя, оно будет разрешено в IP-адрес перед подключением."
@@ -2081,6 +2132,9 @@ msgstr "Локальные подсети (%s): прямое подключен�
 msgid "Add ISP %s DNS to the whitelist: %s"
 msgstr "Добавление DNS провайдера %s в белый список: %s"
 
+msgid "Add direct DNS to the whitelist: %s"
+msgstr "Добавление прямого DNS в белый список: %s"
+
 msgid "[%s]"
 msgstr "【%s】"
 
@@ -2258,6 +2312,9 @@ msgstr "Опции плагина указаны не полностью."
 msgid "shadowsocks-libev unsupport 2022 encryption."
 msgstr "shadowsocks-libev не поддерживает шифрование 2022."
 
+msgid "Please replace %s to support %s transmission method."
+msgstr "Пожалуйста, замените %s, чтобы поддержать метод передачи %s."
+
 msgid "Please replace Xray or Sing-Box to support more transmission methods in Shadowsocks."
 msgstr "Пожалуйста, используйте Xray или Sing-Box для поддержки дополнительных методов передачи в Shadowsocks."
 
@@ -2344,3 +2401,6 @@ msgstr "Ошибка, выполняется восстановление слу
 
 msgid "Subscription complete..."
 msgstr "Подписка завершена..."
+
+msgid "Processing, please wait…"
+msgstr "Обработка, пожалуйста, подождите…"

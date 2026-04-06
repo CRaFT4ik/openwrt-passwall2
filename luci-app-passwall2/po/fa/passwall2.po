@@ -136,6 +136,18 @@ msgstr "DNS مستقیم DoH"
 msgid "Direct DNS EDNS Client Subnet"
 msgstr "زیرشبکه کلاینت EDNS برای DNS مستقیم"
 
+msgid "DNS queries are split by shunt rules. Direct DNS serves domains that go directly. Remote DNS serves domains that go through the VPN node."
+msgstr "درخواست‌های DNS بر اساس قوانین شانت تقسیم می‌شوند. DNS مستقیم دامنه‌های مستقیم را سرویس می‌دهد. DNS راه دور دامنه‌هایی که از طریق نود VPN می‌روند را سرویس می‌دهد."
+
+msgid "Fallback DNS"
+msgstr "DNS پشتیبان"
+
+msgid "from dnsmasq config"
+msgstr "از پیکربندی dnsmasq"
+
+msgid "Used when Direct DNS Protocol is set to Auto and no DNS servers are found in the dnsmasq configuration."
+msgstr "زمانی استفاده می‌شود که پروتکل DNS مستقیم روی خودکار تنظیم شده و سرور DNS در پیکربندی dnsmasq یافت نشود."
+
 msgid "Remote DNS Protocol"
 msgstr "پروتکل DNS راه دور"
 
@@ -567,6 +579,9 @@ msgstr "نوع احراز هویت"
 msgid "Auth Password"
 msgstr "رمز عبور احراز هویت"
 
+msgid "Client BBR Flow Control"
+msgstr "کنترل BBR مشتری"
+
 msgid "Commands the client to use the BBR flow control algorithm"
 msgstr "به کلاینت دستور می‌دهد تا از الگوریتم کنترل جریان BBR استفاده کند"
 
@@ -590,6 +605,9 @@ msgstr "پنجره دریافت اتصال QUIC"
 
 msgid "QUIC concurrent bidirectional streams"
 msgstr "جریان‌های دوطرفه همزمان QUIC"
+
+msgid "QUIC KeepAlive interval"
+msgstr "فاصله QUIC KeepAlive"
 
 msgid "Disable MTU detection"
 msgstr "غیرفعال کردن تشخیص MTU"
@@ -740,6 +758,12 @@ msgstr "ربودن ICMP (PING)"
 
 msgid "Hijacking ICMPv6 (IPv6 PING)"
 msgstr "ربودن ICMPv6 (IPv6 PING)"
+
+msgid "Force Proxy LAN IP"
+msgstr "IP پروکسی LAN را مجبور کنید"
+
+msgid "By default, commonly used internal network IP ranges will be connect directly (not entering the core). If you want a certain network range to go through a proxy, please add it here."
+msgstr "به طور پیش‌فرض، محدوده‌های IP شبکه داخلی که معمولاً استفاده می‌شوند، مستقیماً متصل می‌شوند (و وارد هسته نمی‌شوند). اگر می‌خواهید محدوده شبکه خاصی از طریق پروکسی عبور کند، لطفاً آن را اینجا اضافه کنید."
 
 msgid "Sniffing"
 msgstr "شنود (Sniffing)"
@@ -1101,6 +1125,21 @@ msgstr "محدوده IP"
 msgid "Source Interface"
 msgstr "رابط منبع"
 
+msgid "Bridge"
+msgstr "پل شبکه"
+
+msgid "Wireless Adapter"
+msgstr "آداپتور بی‌سیم"
+
+msgid "Ethernet Adapter"
+msgstr "آداپتور اترنت"
+
+msgid "Tunnel Interface"
+msgstr "رابط تونل"
+
+msgid "Invalid interface name"
+msgstr "نام رابط نامعتبر"
+
 msgid "Use Interface With ACLs"
 msgstr "استفاده از رابط با ACLها"
 
@@ -1320,6 +1359,9 @@ msgstr "اجازه ناامن (allowInsecure)"
 msgid "Whether unsafe connections are allowed. When checked, Certificate validation will be skipped."
 msgstr "آیا اتصالات ناامن مجاز هستند. در صورت تیک خوردن، اعتبارسنجی گواهی نادیده گرفته می‌شود."
 
+msgid "Used when the node link does not include this parameter."
+msgstr "زمانی استفاده می‌شود که لینک گره شامل این پارامتر نباشد."
+
 msgid "%s Node Use Type"
 msgstr "نوع استفاده گره %s"
 
@@ -1337,6 +1379,9 @@ msgstr "رمز عبور TUIC برای Socks محلی"
 
 msgid "UDP relay mode"
 msgstr "حالت بازپخش UDP"
+
+msgid "Concurrent Tunnels"
+msgstr "تونل‌های همزمان"
 
 msgid "Congestion control algorithm"
 msgstr "الگوریتم کنترل ازدحام"
@@ -1659,11 +1704,20 @@ msgstr "سیاست پرس‌وجوی ECH"
 msgid "Controls the policy used when performing DNS queries for ECH configuration."
 msgstr "سیاستی که هنگام انجام پرس‌وجوهای DNS برای پیکربندی ECH استفاده می‌شود را کنترل می‌کند."
 
+msgid "ECH Query Domain"
+msgstr "دامنه پرس و جو ECH"
+
+msgid "Overrides the domain name used for ECH HTTPS record queries."
+msgstr "نام دامنه مورد استفاده برای پرس‌وجوهای رکورد ECH HTTPS را لغو می‌کند."
+
 msgid "Enable Multipath TCP, need to be enabled in both server and client configuration."
 msgstr "فعال‌سازی Multipath TCP، باید در تنظیمات سرور و کلاینت فعال باشد."
 
 msgid "An FinalMaskObject in JSON format, used for sharing."
 msgstr "یک شیء FinalMaskObject با فرمت JSON که برای اشتراک‌گذاری استفاده می‌شود."
+
+msgid "Custom finalmask overrides mkcp, hysteria2, fragment, noise, and related settings."
+msgstr "ماسک نهایی سفارشی، تنظیمات mkcp، hysteria2، fragment، noise و تنظیمات مرتبط را نادیده می‌گیرد."
 
 msgid "Fragment"
 msgstr "قطعه‌بندی (Fragment)"
@@ -1683,8 +1737,8 @@ msgstr "طول قطعه"
 msgid "Fragmented packet length (byte)"
 msgstr "طول بسته قطعه‌بندی شده (بایت)"
 
-msgid "Fragment Interval"
-msgstr "بازه قطعه‌بندی"
+msgid "Fragment Delay"
+msgstr "تأخیر قطعه"
 
 msgid "Fragmentation interval (ms)"
 msgstr "بازه قطعه‌بندی (میلی‌ثانیه)"
@@ -1693,7 +1747,7 @@ msgid "Max Split"
 msgstr "حداکثر تقسیم"
 
 msgid "Limit the maximum number of splits."
-msgstr "محدود کردن حداکثر تعداد تقسیم‌ها."
+msgstr "حداکثر تعداد تقسیم‌بندی‌ها را محدود کنید."
 
 msgid "Split handshake data into multiple TLS records for better censorship evasion. Low overhead. Recommended to enable first."
 msgstr "تقسیم داده‌های دست تکان دادن به چندین رکورد TLS برای فرار بهتر از سانسور. سربار کم. توصیه می‌شود ابتدا فعال شود."
@@ -1713,14 +1767,11 @@ msgstr "برای ارسال بسته‌های نویز، \"Noise\" را در ت�
 msgid "Xray Noise Packets"
 msgstr "بسته‌های نویز Xray"
 
-msgid "Packet"
-msgstr "بسته"
+msgid "Packet | Rand Length"
+msgstr "طول بسته | رند"
 
 msgid "Delay (ms)"
 msgstr "تاخیر (میلی‌ثانیه)"
-
-msgid "IP Type"
-msgstr "نوع IP"
 
 msgid "If is domain name, The requested domain name will be resolved to IP before connect."
 msgstr "اگر نام دامنه است، نام دامنه درخواست شده قبل از اتصال به IP حل می‌شود."
@@ -2080,6 +2131,9 @@ msgstr "بخش‌های شبکه محلی (%s) اتصال مستقیم: %s"
 msgid "Add ISP %s DNS to the whitelist: %s"
 msgstr "افزودن DNS ISP %s به لیست سفید: %s"
 
+msgid "Add direct DNS to the whitelist: %s"
+msgstr "افزودن DNS مستقیم به لیست سفید: %s"
+
 msgid "[%s]"
 msgstr "[%s]"
 
@@ -2260,6 +2314,9 @@ msgstr "گزینه‌های افزونه ناقص است."
 msgid "shadowsocks-libev unsupport 2022 encryption."
 msgstr "shadowsocks-libev از رمزنگاری 2022 پشتیبانی نمی‌کند."
 
+msgid "Please replace %s to support %s transmission method."
+msgstr "لطفا برای پشتیبانی از روش انتقال %s، %s را جایگزین کنید."
+
 msgid "Please replace Xray or Sing-Box to support more transmission methods in Shadowsocks."
 msgstr "لطفاً برای پشتیبانی از روش‌های انتقال بیشتر در Shadowsocks، از Xray یا Sing-Box استفاده کنید."
 
@@ -2346,3 +2403,6 @@ msgstr "خطا، بازیابی سرویس."
 
 msgid "Subscription complete..."
 msgstr "اشتراک کامل شد..."
+
+msgid "Processing, please wait…"
+msgstr "در حال پردازش، لطفا صبر کنید…"

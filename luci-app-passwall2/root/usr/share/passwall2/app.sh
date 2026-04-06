@@ -1291,6 +1291,7 @@ get_config() {
 	LOCALHOST_PROXY=$(config_t_get global localhost_proxy '1')
 	CLIENT_PROXY=$(config_t_get global client_proxy '1')
 	DIRECT_DNS_QUERY_STRATEGY=$(config_t_get global direct_dns_query_strategy UseIP)
+	DIRECT_DNS_PROTOCOL=$(config_t_get global direct_dns_protocol auto)
 	REMOTE_DNS_PROTOCOL=$(config_t_get global remote_dns_protocol tcp)
 	REMOTE_DNS_DETOUR=$(config_t_get global remote_dns_detour remote)
 	REMOTE_DNS=$(config_t_get global remote_dns 1.1.1.1:53 | sed 's/#/:/g' | sed -E 's/\:([^:]+)$/#\1/g')
@@ -1305,10 +1306,18 @@ get_config() {
 	ISP_DNS=$(cat $RESOLVFILE 2>/dev/null | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" | grep -v -E '^(0\.0\.0\.0|127\.0\.0\.1)$' | awk '!seen[$0]++')
 	ISP_DNS6=$(cat $RESOLVFILE 2>/dev/null | grep -E "([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4}" | awk -F % '{print $1}' | awk -F " " '{print $2}' | grep -v -Fx ::1 | grep -v -Fx :: | awk '!seen[$0]++')
 
-	DEFAULT_DNSMASQ_CFGID=$(uci show dhcp.@dnsmasq[0] |  awk -F '.' '{print $2}' | awk -F '=' '{print $1}'| head -1)
-	DEFAULT_DNS=$(uci show dhcp.@dnsmasq[0] | grep "\.server=" | awk -F '=' '{print $2}' | sed "s/'//g" | tr ' ' '\n' | grep -v "\/" | head -2 | sed ':label;N;s/\n/,/;b label')
-	[ -z "${DEFAULT_DNS}" ] && DEFAULT_DNS=$(echo -n $ISP_DNS | tr ' ' '\n' | head -2 | tr '\n' ',' | sed 's/,$//')
-	AUTO_DNS=${DEFAULT_DNS:-119.29.29.29}
+	local FALLBACK_DNS=$(config_t_get global fallback_dns "119.29.29.29")
+	case "$DIRECT_DNS_PROTOCOL" in
+		udp|tcp)
+			local DIRECT_DNS=$(config_t_get global direct_dns "${FALLBACK_DNS}" | sed 's/#/:/g' | sed -E 's/\:([^:]+)$/#\1/g')
+			AUTO_DNS=${DIRECT_DNS}
+			;;
+		*)
+			DEFAULT_DNS=$(uci show dhcp.@dnsmasq[0] | grep "\.server=" | awk -F '=' '{print $2}' | sed "s/'//g" | tr ' ' '\n' | grep -v "\/" | head -5 | sed ':label;N;s/\n/,/;b label')
+			[ -z "${DEFAULT_DNS}" ] && DEFAULT_DNS=$(echo -n $ISP_DNS | tr ' ' '\n' | head -5 | tr '\n' ',' | sed 's/,$//')
+			AUTO_DNS=${DEFAULT_DNS:-${FALLBACK_DNS}}
+			;;
+	esac
 
 	DNSMASQ_CONF_DIR=/tmp/dnsmasq.d
 	DEFAULT_DNSMASQ_CFGID="$(uci -q show "dhcp.@dnsmasq[0]" | awk 'NR==1 {split($0, conf, /[.=]/); print conf[2]}')"
